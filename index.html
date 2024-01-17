@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Driver List Upload</title>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <h1>Driver List Upload</h1>
+  <input type="file" id="uploadFile" accept=".xlsx, .xls" />
+  <button onclick="handleUpload()">Upload</button>
+  <table id="driversTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>License Number</th>
+        <th>Vehicle Type</th>
+      </tr>
+    </thead>
+    <tbody id="driversData">
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
 </body>
 </html>
