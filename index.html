@@ -2,31 +2,17 @@
 <html>
 <head>
   <title>Driver List Upload</title>
-</head>
-<body>
-  <h1>Driver List Upload</h1>
-  <input type="file" id="uploadFile" accept=".xlsx, .xls" />
-  <button onclick="handleUpload()">Upload</button>
-  <table id="driversTable">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>License Number</th>
-        <th>Vehicle Type</th>
-      </tr>
-    </thead>
-    <tbody id="driversData">
-    </tbody>
-  </table>
 
-  <script src="script.js"></script>
-  <script src="xlsx.js"></script>
-  <script src="shim.js"></script>
-  <script src="test.js"></script>
-  <script src="xlsx.flow.js"></script>
-  <script src="xlsx.mini.flow.js"></script>
-  <script src="xlsx.mini.js"></script>
-  <script src="xlsxworker.flow.js"></script>
-  <script src="xlsxworker.js"></script>
-</body>
+ <!-- (A) JAVASCRIPT -->
+    <!-- https://sheetjs.com/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <!-- (B) FILE PICKER -->
+    <input type="file" id="demoA" accept=".xls,.xlsx">
+
+    <!-- (C) EMPTY TABLE -->
+    <table id="demoB"></table>
+  </body>
 </html>

@@ -1,36 +1,29 @@
-function handleUpload() {
-    var file = document.getElementById('uploadFile').files[0];
-    var reader = new FileReader();
-  
-    reader.onload = function (e) {
-      var data = new Uint8Array(e.target.result);
-      var workbook = XLSX.read(data, { type: 'array' });
-      var sheetName = workbook.SheetNames[0];
-      var worksheet = workbook.Sheets[sheetName];
-      var drivers = XLSX.utils.sheet_to_json(worksheet, { header: 'A', defval: '' });
-  
-      displayDrivers(drivers);
-    };
-  
-    reader.readAsArrayBuffer(file);
-  }
-  
-  function displayDrivers(drivers) {
-    var driversTable = document.getElementById('driversData');
-  
-    drivers.forEach(function (driver) {
-      var row = document.createElement('tr');
-      var nameCell = document.createElement('td');
-      var licenseCell = document.createElement('td');
-      var vehicleCell = document.createElement('td');
-  
-      nameCell.textContent = driver.Name || '';
-      licenseCell.textContent = driver['License Number'] || '';
-      vehicleCell.textContent = driver['Vehicle Type'] || '';
-  
-      row.appendChild(nameCell);
-      row.appendChild(licenseCell);
-      row.appendChild(vehicleCell);
-      driversTable.appendChild(row);
-    });
-  }
+document.getElementById("demoA").onchange = evt => {
+  // (A) NEW FILE READER
+  var reader = new FileReader();
+
+  // (B) ON FINISH LOADING
+  reader.addEventListener("loadend", evt => {
+    // (B1) GET HTML TABLE
+    var table = document.getElementById("demoB");
+    table.innerHTML = "";
+
+    // (B2) GET THE FIRST WORKSHEET
+    var workbook = XLSX.read(evt.target.result, {type: "binary"}),
+        worksheet = workbook.Sheets[workbook.SheetNames[0]],
+        range = XLSX.utils.decode_range(worksheet["!ref"]);
+
+    // (B3) READ EXCEL CELLS & INSERT ROWS/COLUMNS
+    for (let row=range.s.r; row<=range.e.r; row++) {
+      let r = table.insertRow();
+      for (let col=range.s.c; col<=range.e.c; col++) {
+        let c = r.insertCell(),
+            xcell = worksheet[XLSX.utils.encode_cell({r:row, c:col})];
+        c.innerHTML = xcell.v;
+      }
+    }
+  });
+
+  // (C) START - READ SELECTED EXCEL FILE
+  reader.readAsArrayBuffer(evt.target.files[0]);
+};
